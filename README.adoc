@@ -1,0 +1,287 @@
+= Lumen Api Gateway Microservice
+
+This project was done as a part of 3 *Microservices* project using *Lumen* and *Laradock*
+Can be used as a stand a lone project and part of the *Microservices* project.
+
+= What is an API Gateway
+
+An API gateway takes all API calls from clients, then routes them to the appropriate microservice with request routing, composition, and protocol translation. Typically it handles a request by invoking multiple microservices and aggregating the results, to determine the best path. It can translate between web protocols and web‑unfriendly protocols that are used internally.
+This part is the first point that the client connect to when trying to use the microserivces of
+a given system also provides auth services for the client and manges access to the microservices.
+
+image::file.png[]
+vices.io/i/apigateway.jpg
+____
+
+Lumen is designed for building lightning fast micro-services and APIs
+
+____
+
+*Laradock* is a full PHP development environment for Docker that Includes prepackaged Docker Images, all preconfigured to provide a wonderful PHP development environment. Laradock is well known in the Laravel/lumen community, as the project started with single focus on running Laravel projects on Docker.
+
+== Usefull Links
+
+* https://laradock.io/[Laradock]
+* https://lumen.laravel.com/[Lumen]
+
+== Requirements
+
+To be able to run this project one needs the following technologies:
+
+* https://www.docker.com/[Docker] -&gt; Laradock uses Docker
+* https://getcomposer.org/[Composer] -&gt; No need if one uses Laradock/Docker
+
+if one want to start Lumen from scratch Composer is need as a package manager.
+
+== Instructions
+
+Following the instructions one should be able to run this project or at least have a good base how to start a Lumen project using Laradock.
+
+. `git clone git@github.com:ahmedalaahagag/api-gateway-php.git`
+. Rename `.env.example` file to `.env`. The
+.env file is the environment file that deals with project configurations like database credentials, api keys, debug mode, application keys etc and this file is out of version control.
+. Set your application key to a random string. Typically, this string should be 32 characters long. In .env file it is called eg
+`APP_KEY=akkfjvlakengoemvgkcgelapchyekci`
+. Add `MICRO_SERVICE_BASE_URI` which should point to the address of your microserivce
+ex.`AUTHORS_SERVICE_BASE_URI="http://IP_ADDRESS"` if you are using localy with laradock use your local network ip address which you can get from
+Linux or MacOs `ifconfig` or Windows from `network adapter properties`.
+. Add `MICRO_SERVICE_SECRET` which should be added to your microservice to secure the connection between the api gateway
+and the microservice ex.`AUTHORS_SERVICE_SECRET=ECvSZ5O6P9x1GP1fvbtEVktoN358BofH`
+should be sent with every api call to this microservice using the header `Authorization:`
+ex.`Authorization:U0ZyuUhUrNgmLu9TIWJJay30gCT8UOyd`
+. Laradock clone it inside the project folder `git clone https://github.com/laradock/laradock.git`
+
+== To run this project as a standalone project
+
+. `cd laradock`
+. `cp env-example .env`
+. `docker-compose up -d nginx mysql phpmyadmin workspace` =&gt; To start the server
+. `docker-compose exec workspace bash` =&gt; to get access to virtual machine and here one can execute any artisan command
+. Run `composer install` =&gt; to install all php dependencies. This will create a vendor folder which is the core lumen framework
+. Inside `.env` file in the project root update `DB_HOST=mysql`
+. With SQL tool as `PhpMyAdmin` which is already provided by *Laradock* at port `localhost:8080` or similar connect to the MySQL to create a new DB. Or use the Docker MySQL workspace bash to use commands instead.
+. Default values `host:mysql username:root password:root`
+. Update database name and else in `.env`
+
+Remember all the *Docker* commands have to be run it under *Laradock* folder as there the Docker files are placed.
+
+If one wants to run this project as it is after `composer install` run migration as `php artisan migrate` to update the DB with the right tables. Then seed with `php artisan db:seed` to populate the DB with some fake data.
+
+== Securing the Api gateway
+This gateway is secured using `lumen/passport` is a lumen package which authorizes and authenticates users
+to start using the gateway your client should first request a token using
+`localhost/oauth/token` using provided `client_id` and `client_secret`
+to generate those you need to run `docker-compose exec workspace bash` and use the following command after installing passport
+`php artisan passport:install`
+which a typical Oauth process.
+If you are not familier with the process refer to
+https://github.com/dusterio/lumen-passport
+
+== Adding a new microservice
+After writing your microservice code
+
+. obtain the address for the microservice.
+. in `.env` file add
+
+MICRO_SERVICE_BASE_URI="http://IP_ADDRESS:PORT"
+MICRO_SERVICE_SECRET=
+
+Which is how your api gateway gets to your microservice
+
+. in `app/Http/Controllers` dir add the oprations that you want to perform with your api gatway
+. in `app/Http/Services` dir add the api call using `ConsumeExternalService` trait or write your own
+`ConsumeExternalService` is a guzzle wrapper
+http://docs.guzzlephp.org/en/stable/
+. in `routes/web.php` add your new routes
+
+And like this you've added a new microservice.
+
+Note : This is not the best practice though read more on service discovery
+https://www.nginx.com/blog/service-discovery-in-a-microservices-architecture/
+
+== Troubleshoot some possible issues
+
+It is possible one has issues with connecting to MySQL image of Docker. A possible solution as follows:
+
+From terminal
+
+----
+$ docker-compose exec mysql bash
+$ mysql -u root -p
+
+# Execute commands
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+ALTER USER 'default'@'%' IDENTIFIED WITH mysql_native_password BY 'secret';
+----
+
+May be need to restart the container after the changes
+
+----
+$ docker-compose down
+$ docker-compose up -d nginx mysql
+----
+
+== Tutorial
+
+How to create a *Simple Gateway*. Step by step explanations to get start with *Lumen*
+
+*1) Create a Lumen project*
+
+First one need to install Lumen via Composer:
+
+----
+composer global require "laravel/lumen-installer"
+----
+
+Then can run:
+
+----
+lumen new ApiGateWay
+----
+
+*2) Clone Laradock inside the ApiGateWay folder project*
+
+The steps above shows what to do with Laradock and Docker parts.
+
+*3) Connect to the MySQL container*
+One can connect via a program like PhpMyAdmin or MysqlWorkBench or else to the MySQL container. Then need to create the DB.
+
+Example of a connection set up:
+image:doc/Edit_Connection_Laradock__MySQL.png[connection_db]
+
+Remember the name of the DB need to be put inside the `.env` file along with the credetials of it.
+
+----
+DB_CONNECTION=mysql
+DB_HOST=mysql -> This need to be in this way and if any connection issues please refer to the troubleshoot section above
+DB_PORT=3306  -> Change this if you use a different port
+DB_DATABASE= < DB_NAME > < ex. gateway >
+DB_USERNAME= < DB_USERNAME > < ex. root >
+DB_PASSWORD= < DB_PASSWORD > < ex. root >
+----
+
+After one done the first preliminary set up steps, then is the time to move forward creating the API itself.
+
+*4) Eloquent*
+
+In simple words allows calling built-in functions instead of writing complex queries.
+The Eloquent ORM includes *Laravel/Lumen* which provides a beautiful, simple *ActiveRecord* implementation for working with the database.
+Each database table has a corresponding *Model* which is used to interact with that table. Models allow you to query for data in your tables, as well as insert new records into the table. For example, one can say `Users::all()` to get all the users inside users table rather than writing `select * from users`.
+Where Users in `Users::all() is a`model`.
+
+Then to use *Eloquent* uncomment the `$app-&gt;withEloquent()`
+in your `bootstrap/app.php`
+
+*5) Facades*
+
+A *facade* class is a wrapper around a few classes serving a particular purpose to make a series of steps required to perform a task in a single function call.
+
+Then uncomment the `$app-&gt;withFacades()` call inside `bootstrap/app.php` file to use *Laravel Facade*.
+
+*6) Users*
+Then inside the *app* folder, will create `Users.php`. It is called a model in *MVC framework*.
+It will reflect *users table* inside database which has not been created yet Inside this model will have set some fillable `fields =&gt;name` and `gender` and `country`
+as all *Eloquent models* protect against mass-assignment by default. A *mass-assignment* vulnerability occurs when a user passes an unexpected HTTP parameter through a request, and that parameter changes a column in your database you did not expect
+
+See more at https://laravel.com/docs/5.7/eloquent#mass-assignment[mass-assignment]
+
+*7)Create a migration*
+
+To create a migration one need to be inside the *Docker container workspace*:
+
+----
+docker-compose exec workspace bash
+----
+
+Then:
+
+----
+root@688df818e9b7:/var/www# php artisan make:migration create_users_table
+----
+
+This will create migration file inside `database/migrations`
+
+Example: `2020_02_27_153519_create_users_table.php`
+
+A migration file usually defines the schema of the database table.
+
+See more at https://laravel.com/docs/5.7/migrations[migrations]
+
+Then run command
+
+----
+php artisan migrate
+----
+
+This will migrate schema to database according to what is present in migration file. Now your database will have *users table*.
+This is how Eloquent makes it so easy to create tables, share this schema with the team and use its simple functions to generate complex sql queries.
+
+*8) Fake data to use for the test of the API*
+
+Now the issue how we test the API if we do not have any data to
+test actually.
+
+*Lumen* has a very fine way to create dummy data. It is called *Model Factories*. That uses https://github.com/fzaninotto/Faker[Faker] package behind the scenes. Let's dive into.
+
+Inside `database/factories/ModelFactory.php` will define a factory for each table (1 only for users table in this case). A factory is a suitable word because a factory creates object based on rules defined inside the factory.
+
+Now we need the a *seeder class* to call this factory to start creating objects and tell it a number to produce as well. So command `php artisan make:seeder UsersTableSeeder.
+
+Alternatively you can create a factory as in *database/factories/ModelFactory.php* to create objects of Users +
+Will ask it to create 50 objects whenever it is called. Inside
+`database/seeds/DatabaseSeeder.php` call `UsersFactory`.
+Now we will run `php artisan db:seed` command to seed the database. Which will call `run()` in `DatabaseSeeder.php` and seed all listed seeders.
+We now have 50 dummy records inside users table.
+
+Example:
+![seeds](doc/Screenshot 2019-04-03 at 23.57.20.png)
+
+*9) API end points*
+
+If we go to `routes/web.php` here is we define our endpoints/routes. For example if one wants to get all books one will set an endpoint with `url books/all`.
+See the file. One used `Users::all()` (in a callback function)
+which is *Eloquent* way to fetch all the results for a
+model which has also been discussed earlier.
+
+Now if one hit the endpoint through *Postman*
+Attached is a collection that can be imported to *Postman*
+`Gateway.postman_collection.json`
+or visit in browser`localhost/users` one should see all users in json.
+
+= What to expect with the code
+
+* Standardized response format `ApiResponder.php`
+* Standardized Api requests `ConsumeExternalService.php`
+* Independent services for microservices `AuthorService.php` and `BookService.php`
+* `Secret Key` protected endpoints `AuthenticateAccess.php`
+* Standardized exception response format `Handler.php`
+* RESTful Based API format `web.php`
+
+= Response Example
+
+[source]
+----
+All APIs should be calls with Authorization header
+`Authorization`
+Which is the key provided in the .env file with the key `ACCEPTED_SECRETS`
+
+Get example
+
+API : POST localhost/oauth/token
+Response :
+{
+    "token_type": "Bearer",
+    "expires_in": 31622400,
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjAxYzdjYzIwYWE2ZWM2ODg1NzQxNjVjYTc1ZDJhMzk2MjkyOTVkYTAwNTM2OTQ4OGI4MjNkOGE5OTdjYmYyMjc2NGQwZTdjZjM4MGJkOWJlIn0.eyJhdWQiOiI0IiwianRpIjoiMDFjN2NjMjBhYTZlYzY4ODU3NDE2NWNhNzVkMmEzOTYyOTI5NWRhMDA1MzY5NDg4YjgyM2Q4YTk5N2NiZjIyNzY0ZDBlN2NmMzgwYmQ5YmUiLCJpYXQiOjE1ODI5ODQzODcsIm5iZiI6MTU4Mjk4NDM4NywiZXhwIjoxNjE0NjA2Nzg3LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.b8OwcPVlfoYDtWBoBE64A-5Aur0FEkTyv0vBLjWqA1mjOkRXW1EyCHNzxEZsE4e3oPgjrsZcN37YlxetlnQfOtaxfpSTF9lSL7xXmm2nKhA46XcnyFgSeV3H8X-Msn22q0hiouSXdMcuQiXyWFTn3vDKDleq5s7kXUoI4MTeFScXnf_L8HQG2di7WCOKQppWTPtZA0ArnDoIBesoUxSu0J8CFg7qP1DdjxeYx0HKNU4FKytuJT-_i-aRAsPG5k-Z7b7AaSwmS5EDmmDjcnwApRLFcerBApaWJx9L26Rg7m0RT6xGCXL31k_454YIvmRMJVMbbwo-2zBPjrbWgKowoQ29MvVjy4BDuzM900QW3W3KjpiRDO7ZV066s0xe8wFTZrq7g4qK0DpG64Sf1k1mZYL3IoMzUvNPrPVhiLSHhtmUE3aumYt90euaVcafPTREUN3DYbvS5BY3RApt1nJPe3c2KfP7ARqi12NKsX3N8RkekS6KXwq1tPZnIcHFip2UJSwpu0kgDJzZAYVfrdkH7UtEmssEriRm__59IcSLQedyHiq2ROMjHHr4VoWdTLpd4sGHTYGqQIn0jj2RdKEmscl0rlxYNWC2krVgEWBTrvY42NcuzkQGoasMTt1oIf-Kcnf-x_UXU2cP4Q7Hi8aQUuQ0a_Q1CntZWvyvFFe2A5o",
+    "refresh_token": "def50200a5d83b16a4a238488ba574d6fb45c8e2196ded5c57d47709e2b8dd827ea071ece4f8ba01e7749a96712e43bb4e1360f566ba5933fada03a6253d29b5d001e7d6c430177cba538b053afbf75b7c263390e7f0ee519f1f9acb398a35dac6c9dd678029f3f190019e5037a9e9ae685a4afef4cc777883948f02fbff755a21b38ec28364b71ee0c3a72174d83aa574c8df17b0e1a6f65e1417ed085d383690999a53336ea2e33e19f7c1e9f7d9d74b0d37203e5284fa2ac6b6cf9bef509182fb9645a62b7dbbd8ddf44a39c340755ad2474c2c95428e24fbd850ce4e76dbf94195db39033e57cc002d73b847864373f09cc3c9c6a5fc7644a7edbfd0aa596ae001fbf5a106327f10f69995ec3b13cd7ad9dd6ca12858cdf41b98d8d4b55e5670a01422edf75ab321546f41ea8de75727b53bc4d5ad3f960d00ddefcc8c823ade553e548803fdc1e21557481dfd3c164684c91df4262eec67f3e1284f61db952a4cc5"
+}
+
+Error example
+
+API : GET localhost/users
+Response :
+{
+    "error": "Unauthenticated."
+}
+----

@@ -1,0 +1,536 @@
+{
+	"info": {
+		"_postman_id": "8a406aa6-865d-4bb1-9cfc-bd254b49d608",
+		"name": "Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authors",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijk4ZmZlMDFhYWFkNzM0ZDNiYWIyMDJlYmRkYjE3NDEwMTgwZmE5ZDVmYWM3MWMzODlmZTcxYzliODFlMzBiMzBiOGIwNjQ5MTNiOTRkNGRhIn0.eyJhdWQiOiIxIiwianRpIjoiOThmZmUwMWFhYWQ3MzRkM2JhYjIwMmViZGRiMTc0MTAxODBmYTlkNWZhYzcxYzM4OWZlNzFjOWI4MWUzMGIzMGI4YjA2NDkxM2I5NGQ0ZGEiLCJpYXQiOjE1ODI5MDc2NDcsIm5iZiI6MTU4MjkwNzY0NywiZXhwIjoxNjE0NTMwMDQ3LCJzdWIiOiIiLCJzY29wZXMiOltdfQ.ftafh-ZJ8f2U20K8xaeLW9knDAMQ4SohZbSb4gi-RMZ-QDuxiJwdIHnhSkl01j5qBjHkixo5H5SErlTzJGccamq7K88cLIIORc6qHf14g9fSxzf_M5BzKeypiepLY9m3Lns-6HSHjgQX_zStimj6pEWh8fhRl7X1BbOQO98rCYO_8ML75wkU4EKzZrKi19ZncrGhDTg5eAG7a7_wTWMeHT4C6ROG_dQiTwjraEeCDV3ooxm6Yivw0he7D2YXrmKtVOWdnnHUyxrHTSNEcDzmDAYDtiqRobwX1eTBpvxkbyZi3skfk2VkWNIsEaZS-HDK-QeYo-16-rOP7w7dYfm0bXp42Be_HFCF2drxJzwLKbBTwrDodKw46knf1EbL_t7I2WWLymde0U1ndR3ugI2c51iBs5-d6YM0bFaTGhHrnUXkqDRAcCEvOP77iGA-HAsA3NgY0w9sKSP5c3HdLrqQ9vGmQG6tZMIE5XLzxqnO4U7-Bg-27rSldt1wXB-qYibbec_SmlBZsUpZkXZNusO6PhF1DKWDZz6DBAYpy-fc3nBP0RuUrsO8joToY_GJGUZ77Wy7J6Tn9vA-zIH3e1w4Y8Y3vc7g2QTanZ0lKrfOALl7cZA8y9ItLyZXgSVwaDqzwtTD4WwLueQe9nlhBUTjM9W7tmHMN3hMnvuWtNZ1g4k",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost/authors",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Author",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Test 3",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "male",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Germany",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/authors",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Author",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/authors/1",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"authors",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Author",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Test 4",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "male",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Germany",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/authors/20",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"authors",
+						"20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Author",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost/authors/21",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"authors",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/books",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "The new book",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "The new book",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "author_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/books",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Ahmed",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "male",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Germany",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/books/151",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"books",
+						"151"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "The new book",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "The new book",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "50",
+							"type": "text"
+						},
+						{
+							"key": "author_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/books/151",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"books",
+						"151"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "AhmedAlaa",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "male",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Germany",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/books/151",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"books",
+						"151"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Issue Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "client_secret",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "*",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Germany123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/oauth/token",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Germany123",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "Germany123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/users",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImRhMjU0NTA3MDU3MWU4OTc0OGJiNjQ4Mzk0YWFmMmRlZTcwNjhhYWM1MTEwMmRiNTg4ZDM0YzUyZDRkNTgyOGM5ZGFhMTJkNTc1YmFlZjBlIn0.eyJhdWQiOiIyIiwianRpIjoiZGEyNTQ1MDcwNTcxZTg5NzQ4YmI2NDgzOTRhYWYyZGVlNzA2OGFhYzUxMTAyZGI1ODhkMzRjNTJkNGQ1ODI4YzlkYWExMmQ1NzViYWVmMGUiLCJpYXQiOjE1ODI5MTIxNDcsIm5iZiI6MTU4MjkxMjE0NywiZXhwIjoxNjE0NTM0NTQ3LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.bbhcN2OLO3y_pVIfhtdiHxNI1myDGiObWC_5NND4duJkkGmUzZCTjHEI4pMKXIMJMnADBGulTxB9HybqaxN0rNiqE99X1_tJcwHt3OZwx32_gg9Sg9nGJv4mgRylkESJIW7j1aLwPZxQaPP_5P_0ZIYVaQKRMNRkrsaKcLXJPjK90Uqrj2uvoHorfG1-rKyJVo7iu-6fjojbR1-05yf0LASLphcQSoP2GUYSFNhTtweLosflaPo_rE8OUsvgBF7yE9PojVqf4xbt8ffzNUYZF5sr-jao72ZHkHxPdhNHTZknWvuSdCnDuJhTnRausNbK_PDawam3TGnEihZId3VhnnHL65MV6K4x_hmqYDoKr8u-X7yrSnFUh8xQejoCuDITsG5tN8BFUW1n_1_GJp5AkJxFsThMNfjUEV76BLdngFusxTPo5Ke0oW0nRhnhcR4cbpvNmIZ-Eb8WDx8L3Aj5XIH-dexV_brcPMCWgen7HCQ-7HS_XBDbdtehtkMMdxYvJu7Y4bpmm-JW7LxPQkMWy3eruw_S3ZGQAD3zvY2JmxaqARxFL2qqpBGsByEZo_SQPUZwwJGAey2WISR0eQiOOvQ2wJIax6Z8r8DBeV4DXPUJfOsYD22pByEtliopKMwdeKwRAxgD5EppaYdCpSrRv6P0PfpOiHqKRcrzdkd30L4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/users",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Request",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjgxNmM4NGJkOWMwNTYwMjhkMDM1YjM4ZjgxMmIxNjI3NDk2YWRiYjg5YzJhNTZiZDU0ODU0OGU1YjRkMTRjM2I5ZWM3ODY4OGRjZmE0ZjhhIn0.eyJhdWQiOiIyIiwianRpIjoiODE2Yzg0YmQ5YzA1NjAyOGQwMzViMzhmODEyYjE2Mjc0OTZhZGJiODljMmE1NmJkNTQ4NTQ4ZTViNGQxNGMzYjllYzc4Njg4ZGNmYTRmOGEiLCJpYXQiOjE1ODI5MTIxNjksIm5iZiI6MTU4MjkxMjE2OSwiZXhwIjoxNjE0NTM0NTY5LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.XQocaFqIsKKRErLTXTA98lNZ0tcAc2WhYt639EWxgwhrVqG4JtaVfDU5FVQBU2wp3KpLFLOvram2z1H7yA7VODcb6K7vNMonamrdfr8WaVmuDWPzcMBcLxuqjp3JgHVoV2ifwFdPziUKI-7N-y6TiVkU512IAOakSpMK98I1jvpBt7_NCmi5zfDsCusXSPJ_bhNaQ55lW9T5DTaAGdWIgnYPgRQt9f-VBPV9QgsPs-d83UGGXAD50q-4l2w5OKzA5egDs5o64rxudplVyteJZD1xrhM43qr-Li9ewp-IdVpKb66tVuER6PVZamxrWpRTKxQg-vrQnmR1vvQfNy4zY3A0dfVgahggwPD4gaBhS_VAa3-PhVO5XyY9asVnuickrdgFS-iYUkBsYW1Bts3qnrt3E0GwyUWzXbTS6np_RGKZ5yEQLjTiYFEbIz5bAvPpqx5Xa35xhEesonrVBcAW0Gx_qGprxpxuJdPSZpEKWap33rWNaf6W2N0Pa3oBUJTbDyiEWfVJnxheQf715mrzzJKNKhWORtSRlQdNA_eFIFBz9XDyKdegkjrMytr1CQIptosBXb_5pL-GEu4Sb6N6S5ygSNclETyI5jqzt_PIkZFq0KKrpz5lZzKgJLe9DQi1v0f2qVZfxE6V_EC17emrsmPLQgw_nu-NJqVD1GciOXg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImRhMjU0NTA3MDU3MWU4OTc0OGJiNjQ4Mzk0YWFmMmRlZTcwNjhhYWM1MTEwMmRiNTg4ZDM0YzUyZDRkNTgyOGM5ZGFhMTJkNTc1YmFlZjBlIn0.eyJhdWQiOiIyIiwianRpIjoiZGEyNTQ1MDcwNTcxZTg5NzQ4YmI2NDgzOTRhYWYyZGVlNzA2OGFhYzUxMTAyZGI1ODhkMzRjNTJkNGQ1ODI4YzlkYWExMmQ1NzViYWVmMGUiLCJpYXQiOjE1ODI5MTIxNDcsIm5iZiI6MTU4MjkxMjE0NywiZXhwIjoxNjE0NTM0NTQ3LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.bbhcN2OLO3y_pVIfhtdiHxNI1myDGiObWC_5NND4duJkkGmUzZCTjHEI4pMKXIMJMnADBGulTxB9HybqaxN0rNiqE99X1_tJcwHt3OZwx32_gg9Sg9nGJv4mgRylkESJIW7j1aLwPZxQaPP_5P_0ZIYVaQKRMNRkrsaKcLXJPjK90Uqrj2uvoHorfG1-rKyJVo7iu-6fjojbR1-05yf0LASLphcQSoP2GUYSFNhTtweLosflaPo_rE8OUsvgBF7yE9PojVqf4xbt8ffzNUYZF5sr-jao72ZHkHxPdhNHTZknWvuSdCnDuJhTnRausNbK_PDawam3TGnEihZId3VhnnHL65MV6K4x_hmqYDoKr8u-X7yrSnFUh8xQejoCuDITsG5tN8BFUW1n_1_GJp5AkJxFsThMNfjUEV76BLdngFusxTPo5Ke0oW0nRhnhcR4cbpvNmIZ-Eb8WDx8L3Aj5XIH-dexV_brcPMCWgen7HCQ-7HS_XBDbdtehtkMMdxYvJu7Y4bpmm-JW7LxPQkMWy3eruw_S3ZGQAD3zvY2JmxaqARxFL2qqpBGsByEZo_SQPUZwwJGAey2WISR0eQiOOvQ2wJIax6Z8r8DBeV4DXPUJfOsYD22pByEtliopKMwdeKwRAxgD5EppaYdCpSrRv6P0PfpOiHqKRcrzdkd30L4",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "localhost/users/me",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
